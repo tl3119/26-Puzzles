@@ -57,8 +57,8 @@ def find_reachable_states(state):
     return reachable_states, reachable_states_actions
 
 def get_state(state, action):
-    print("this is what i got in")
-    print(state)
+    # print("this is what i got in")
+    # print(state)
     tile_position = find_tile_position(state, 0)
     new_state = copy.deepcopy(state)
     if action == "East": # go to the right, possible sample input: ([0, 1, 2] or [1, 0, 2])
@@ -77,7 +77,6 @@ def get_state(state, action):
             new_state[tile_position[0]][tile_position[1]] = [state[tile_position[0]][tile_position[1]][0], 0, state[tile_position[0]][tile_position[1]][1]]
     elif action == "South": # slide up on the same level
         # new_state = state
-        print("south!!")
         new_state[tile_position[0]][tile_position[1]][tile_position[2]] = new_state[tile_position[0]][tile_position[1]+1][tile_position[2]]
         new_state[tile_position[0]][tile_position[1]+1][tile_position[2]] = 0
     elif action == "North": # slide down on the same level
@@ -116,38 +115,46 @@ def astar_search(initial_state, goal_state):
     frontier = [initial_node] # current frontier
     reached = [initial_node.state] # reached states
 
-    # while len(frontier) > 0:
-    for i in range(5):
+    while len(frontier) > 0:
+    # for i in range(2):
         #get node in frontier with least cost
         current_cost = 10000000000000
+
         for i in range(len(frontier)): # loop through the nodes in the frontier
             if frontier[i].cost + frontier[i].depth < current_cost:
                 current_node = frontier[i]
                 current_node_index = i
+                current_cost = frontier[i].cost + frontier[i].depth
+                # print("current cost:", current_cost)
         frontier.pop(current_node_index) # pop the current_node from the frontier
-        print("popped state")
-        print(current_node.state)
+        # print("popped state: ")
+        # print(current_node.state)
         if current_node.state == goal_state: # check goal state before expansion
             print("solution found!!!")
-            return current_node
+            return current_node.state
         reachable_states, reachable_states_actions = find_reachable_states(current_node.state) # expand
-        print(reachable_states_actions)
-        for i in reachable_states:
-            print(i)
-        for i in range(len(reachable_states_actions)):
+        # print("reachable state actions: ", reachable_states_actions)
+        # for i in range(len(reachable_states)):
+        #     print(reachable_states_actions[i])
+        #     print(reachable_states[i])
+            
+        for i in range(len(reachable_states)):
             if reachable_states[i] not in reached:
                 new_node = Node(reachable_states[i], 1, manhattan_distance(reachable_states[i], goal_state), parent = current_node, action = reachable_states_actions[i])
                 frontier.append(new_node)
                 reached.append(new_node.state)
-                print("appended")
+                # print("appended!")
+                # print("state: ", new_node.state)
+                # print("cost:", new_node.cost)
     print("solution not found!!")
     return None
 
-# def expand(node, actions):
-#     state = node.state
-#     for i in actions:
-#         new_node()
-        
+def is_goal(state, goal_state):
+    if state == goal_state:
+        return True
+    else:
+        return False
+
 # Main function
 def main() -> None:
     # Parse command-line arguments
@@ -174,8 +181,8 @@ def main() -> None:
     print(astar_search(initial_state, goal_state))
     print("intital state:")
     print(initial_state)
-    # print("goal state")
-    # print(goal_state)
+    print("goal state")
+    print(goal_state)
     # print("find tile position")
     # print(find_tile_position(initial_state, 22))
     # print("find manhattan")
@@ -188,6 +195,9 @@ def main() -> None:
     #     print("-----------")
     # print("go south")
     # print(get_state(initial_state, "South"))
+    # state = get_state(initial_state, "East")
+    # if is_goal(state, goal_state):
+    #     print("found it!!!!!!!!!!!!!!")
 
 if __name__ == "__main__":
     main()
