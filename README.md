@@ -7,10 +7,10 @@
 
 # Running
 ```
-python Puzzls.py path/to/input/file.txt
+python Puzzles.py path/to/input/file.txt
 ```
 For example, for input1 file:
 ```
-python Puzzls.py input1.txt
+python Puzzles.py input1.txt
 ```
 Then, it will generate the output file contains the solution
