@@ -110,7 +110,7 @@ class Node:
 # Define the A* search algorithm
 def astar_search(initial_state, goal_state):
     #DECLARE A NODE: Node(state, depth, cost, parent)
-    initial_node = Node(initial_state, 0, 0, None, None)
+    initial_node = Node(initial_state, 0, manhattan_distance(initial_state, goal_state), None, None)
 
     frontier = [initial_node] # current frontier
     reached = [initial_node.state] # reached states
@@ -203,14 +203,14 @@ def generate_output_file(node, nodes_generated_count):
     solution.reverse() # make the list solution in reverse (so that it comes from root node)
     for i in range(len(solution)):
         f.write(solution[i])
+        f.write(" ")
     f.write ("\n")    
     # Line 28 contains the f(n) values of the nodes along the solution path, 
     # from the root node to the goal node, separated by blank spaces. 
     solution_path_cost.reverse()
     for i in range(len(solution_path_cost)):
         f.write(str(solution_path_cost[i]))
-        f.write(" ")
-    f.write ("\n")  
+        f.write(" ") 
 
 # Main function
 def main() -> None:
