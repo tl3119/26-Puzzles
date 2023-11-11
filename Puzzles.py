@@ -56,8 +56,6 @@ def find_reachable_states(state):
     return reachable_states, reachable_states_actions
 
 def get_state(state, action):
-    # print("this is what i got in")
-    # print(state)
     tile_position = find_tile_position(state, 0)
     new_state = copy.deepcopy(state)
     if action == "E": # go to the right, possible sample input: ([0, 1, 2] or [1, 0, 2])
@@ -140,7 +138,7 @@ def astar_search(initial_state, goal_state):
                 nodes_generated_count += 1
                 frontier.append(new_node)
                 reached.append(new_node.state)
-    print("solution not found!!")
+    print("solution not found!!！")
     return None
 
 def is_goal(state, goal_state):
@@ -160,7 +158,6 @@ def generate_output_file(node, nodes_generated_count):
         lines = file.read().splitlines()
     
     new_file_name = cmdline.filename[:-4] + "solution.txt"
-    print("newfilename:", new_file_name)
     f = open(new_file_name, "w")
     for i in lines:
         f.write(i)
@@ -199,7 +196,6 @@ def generate_output_file(node, nodes_generated_count):
         f.write(str(solution_path_cost[i]))
         f.write(" ") 
 
-    print("solutionfile generated!!")
 # Main function
 def main() -> None:
     # Parse command-line arguments
