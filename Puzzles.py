@@ -1,7 +1,6 @@
 # Author: Michelle Lin (netid: ml7188) and Tianzuo Liu (netid: tl3119)
 import argparse
-import heapq
-from typing import List, Tuple, Union
+from typing import List
 import copy
 
 
